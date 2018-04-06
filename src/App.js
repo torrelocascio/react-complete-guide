@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
-import './App.css'
+
 
 class App extends Component {
   state= {
@@ -14,7 +14,7 @@ class App extends Component {
     showPersons: false
    
   }
-deletePersonHandler = (personIndex) => {2
+deletePersonHandler = (personIndex) => {
   const persons = [...this.state.persons];
   persons.splice(personIndex,1);
   this.setState({persons:persons})
@@ -44,8 +44,24 @@ deletePersonHandler = (personIndex) => {2
 
 
   render() {
+      let classes = []
+      if (this.state.persons.length<3){
+        classes.push('red')
+      }
+      if (this.state.persons.length<2){
+        classes.push('bold')
+      }
 
+    const style={
+      backgroundColor: 'green',
+      font: 'inherit',
+      color: 'white',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer',
+    }
   let persons = null
+
 
   if (this.state.showPersons){
       persons = (
@@ -55,22 +71,30 @@ deletePersonHandler = (personIndex) => {2
       age={person.age} 
       key={person.id}
       changed={ (event) => this.nameChangedHandler(event, person.id)}
-      click={() => this.deletePersonHandler(index)}/>
+      click={() => this.deletePersonHandler(index)}
+      
+      />
       })
     }
 
      </div>
     )
+    style.backgroundColor = 'red'
+
+  
   }
-      
+
+
+
     return (
+
 <div className="App">
  
     <h1>Hi I'm A React App</h1>
-    <button onClick={this.togglePersonHandler}>Show/Hide Names</button>
+    <p className={classes.join(' ')}>This App is Working</p>
+    <button style={style} onClick={this.togglePersonHandler}>Show/Hide Names</button>
     {persons}
 </div>
-
       
     );
   }
